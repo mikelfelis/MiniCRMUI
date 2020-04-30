@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Socialite;
+use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -63,5 +66,51 @@ class LoginController extends Controller
             return redirect()->route('login')->with('error','Email-Address And Password Are Wrong.');
         }
           
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $getInfo = Socialite::driver('github')->user();
+
+        $user = User::where('provider_id', $getInfo->id)->first();
+
+        if (!$user)
+        {
+            $user = User::create([
+                'name' => $getInfo->getName(),
+                'email' => $getInfo->getEmail(),
+                'provider' => 'github',
+                'provider_id' => $getInfo->getId(),
+                'password' => '',
+                'is_admin' => false,
+                'avatar' => $getInfo->getAvatar()
+            ]);
+        }
+
+        Auth::login($user);
+
+        if ($user->is_admin == 1)
+        {
+            return redirect()->to('admin.home');
+        }
+        else
+        {
+            return redirect()->to('home');
+        }
     }
 }

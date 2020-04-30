@@ -27,3 +27,7 @@ Route::middleware('is_admin')->group(function () {
     Route::resource('admin/companies', 'CompaniesController');
     Route::resource('admin/employees', 'EmployeeController');
 });
+
+// Socialite routes
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
