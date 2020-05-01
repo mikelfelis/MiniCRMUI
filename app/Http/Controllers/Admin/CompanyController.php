@@ -71,7 +71,6 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        $company = Company::find($company->id);
         return view('admin.company.edit', compact('company'));
     }
 
@@ -89,12 +88,11 @@ class CompanyController extends Controller
             'address' => 'required'
         ]);
 
-        $update = Company::find($company->id);
-        $update->name = $request->get('name');
-        $update->address = $request->get('address');
-        $update->website = $request->get('website');
-        $update->save();
-        return redirect('/admin/companies')->with('success', $update->name . ' is now updated.');
+        $company->name = $request->get('name');
+        $company->address = $request->get('address');
+        $company->website = $request->get('website');
+        $company->save();
+        return redirect('/admin/companies')->with('success', $company->name . ' is now updated.');
     }
 
     /**
@@ -105,8 +103,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $toDestroy = Company::find($company->id);
-        $toDestroy->delete();
-        return redirect('/admin/companies')->with('success', $toDestroy->name . ' was successfully deleted.');
+        $company->delete();
+        return redirect('/admin/companies')->with('success', $company->name . ' was successfully deleted.');
     }
 }

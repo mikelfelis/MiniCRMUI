@@ -19,7 +19,7 @@
                     </div>
                     @endif
 
-                    <a style="margin-bottom:5px;" href="{{ route('companies.create') }}" class="btn btn-sm btn-primary">Add company</a>
+                    <a style="margin-bottom:5px;" href="{{ route('companies.create') }}" class="btn btn-sm btn-primary">Add Company</a>
  
                     <table class="table table-striped table-bordered table-condensed">
                         <thead>
@@ -39,7 +39,7 @@
                                     <td>{{ $company->name }}</td>
                                     <td>{{ $company->address }}</td>
                                     <td>{{ $company->website }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{{ route('companies.edit', $company->id)}}" class="btn btn-sm btn-primary">Edit</a>
                                         <form action="{{ route('companies.destroy', $company->id)}}" method="post" style="display:inline">
                                             @csrf
