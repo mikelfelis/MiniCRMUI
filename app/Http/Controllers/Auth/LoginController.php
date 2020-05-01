@@ -104,13 +104,13 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        if ($user->is_admin == 1)
+        if ($user->is_admin = 1)
         {
-            return redirect()->to('admin.home');
+           return redirect()->route('admin.home');
         }
         else
         {
-            return redirect()->to('home');
+            return redirect()->route('home');
         }
     }
 }

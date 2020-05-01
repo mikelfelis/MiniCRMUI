@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="row">
+        @include('admin.sidebar')
+
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Admin Dashboard</div>
 
@@ -14,7 +16,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welcome back!
                 </div>
             </div>
         </div>
