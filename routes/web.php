@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // using middleware for admin routes
 Route::middleware('is_admin')->group(function () {
-    Route::get('admin/home', 'HomeController@adminHome')->name('admin.home');
+    Route::get('admin/dashboard', 'HomeController@adminHome')->name('admin.dashboard');
 
     Route::resources([
         'admin/companies' => 'Admin\CompanyController',
